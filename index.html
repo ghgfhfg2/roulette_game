@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<title> prototype about roulette </title>
+<meta charset="utf-8">
+<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script> 
+<script type="text/javascript" src="./js/jQueryRotate.js"></script>
+<style>
+#roullet_box{position: relative;display: inline-block;}
+#image{
+  margin:50px 50px;z-index:10;
+}
+#select{position:absolute;left:50%;top:0;z-index:20;}
+</style>
+</head>
+<body>
+	<div id="roullet_box">
+		<img src="img/roulette.png" id="image">
+		<img src="img/niddle.png" id="select">
+	</div>
+<br />
+<input type='button' value='시작' id="gameStart"></input>
+<div id="result"></div>
+
+<script>
+
+
+
+(function(){	
+	var coin = 99;
+	var btn = document.querySelector('#gameStart');
+	btn.addEventListener('click',function(){
+		console.log(coin);
+		if(coin > 0){
+			rotation();
+			coin--;
+		}else{
+			alert('기회가 없습니다');
+		}	
+	})
+
+
+var result = [
+		{	
+			key:0,
+			deg: 10,
+			prod : "적립금"
+		},
+		{	
+			key:1,
+			deg: 50,
+			prod : "쿠폰"
+		},
+		{	
+			key:2,
+			deg: 100,
+			prod : "꽝"
+		},
+	]
+
+function rotation(){
+	var ranNum = (Math.random()*100).toFixed(1);
+	var ranDeg = result[1].deg;
+	var key;
+	
+	$("#image").rotate({
+		angle:0, 
+		animateTo:360 * 5 + ranDeg,
+		center: ["50%", "50%"],
+		easing: $.easing.easeInOutElastic,
+		callback: function(){ 
+					endAnimate(key);
+				},
+		duration:1000
+	});
+}
+
+function endAnimate($key){	
+
+}
+function randomize($min, $max){ return Math.floor(Math.random() * ($max - $min + 1)) + $min; }
+
+})();
+
+</script>
+</body>
+</html>
